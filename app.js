@@ -18,24 +18,45 @@ var firstAndPike = {
     for (var j = 0; j < this.customersPerHour.length; j++){
       this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average));
     }
+  },
+  render: function(){
+    this.totalCookies();
+    for (var k = 0; k < storeHours.length; k++){
+      var liEl = document.createElement('li'); //calling in a list element
+      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.';
+      pikeEl.appendChild(liEl);
+    }
   }
 };
-firstAndPike.totalCookies();
-
-for (var i = 0; i < storeHours.length; i++){
-  var liEl = document.createElement('li');
-  liEl.textContent = storeHours[i] + ': ' + firstAndPike.cookiesPerHour[i] + ' cookies sold to ' + firstAndPike.customersPerHour[i] + ' total customers.';
-  pikeEl.appendChild(liEl);
-}
+firstAndPike.render();
 
 
-// console.log(firstAndPike);
-//
-//
-//
-// function totalCookies(average,total){
-//   average = average;
-//   total = total;
-//   return Math.round(total * average);
-// }
-// console.log(totalCookies(firstAndPike.average, currentTime));
+
+var seaTacAirportEl = document.getElementById('seaTacAirportSchedule');
+var seaTacAirport = {
+  min: 3,
+  max: 24,
+  average: 1.2,
+  customersPerHour: [],
+  cookiesPerHour: [],
+  totalCustomers: function() {
+    for (var i = 0; i < storeHours.length; i++){
+      this.customersPerHour.push(Math.floor(Math.random() * (this.max - this.min + 1)) + this.min);
+    }
+  },
+  totalCookies: function() {
+    this.totalCustomers();
+    for (var j = 0; j < this.customersPerHour.length; j++){
+      this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average));
+    }
+  },
+  render: function(){
+    this.totalCookies();
+    for (var k = 0; k < storeHours.length; k++){
+      var liEl = document.createElement('li'); //calling in a list element
+      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.';
+      seaTacAirportEl.appendChild(liEl);
+    }
+  }
+};
+seaTacAirport.render();
