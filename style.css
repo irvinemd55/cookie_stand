@@ -1,0 +1,8 @@
+* {
+  outline: 2px dotted orange
+}
+
+ul {
+  outline: 2px dashed green;
+  padding: 10px;
+}
