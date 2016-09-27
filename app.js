@@ -144,3 +144,39 @@ var capitolHill = {
   }
 };
 capitolHill.render();
+
+var alkiEl = document.getElementById('alkiSchedule');
+var alki = {
+  min: 2,
+  max: 16,
+  average: 4.6,
+  customersPerHour: [],
+  cookiesPerHour: [],
+  customersSum: 0,
+  cookiesSum: 0,
+  totalCustomers: function() {
+    for (var i = 0; i < storeHours.length; i++){
+      this.customersPerHour.push(Math.floor(Math.random() * (this.max - this.min + 1)) + this.min);
+      this.customersSum += this.customersPerHour[i];
+    }
+  },
+  totalCookies: function() {
+    this.totalCustomers();
+    for (var j = 0; j < this.customersPerHour.length; j++){
+      this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average));
+      this.cookiesSum += this.cookiesPerHour[j];
+    }
+  },
+  render: function(){
+    this.totalCookies();
+    for (var k = 0; k < storeHours.length; k++){
+      var liEl = document.createElement('li'); //calling in a list element
+      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.';
+      alkiEl.appendChild(liEl);
+    }
+    liEl = document.createElement('li');
+    liEl.textContent = 'Total: ' + this.cookiesSum + ' cookies sold and ' + this.customersSum + ' customers served.';
+    alkiEl.appendChild(liEl);
+  }
+};
+alki.render();
