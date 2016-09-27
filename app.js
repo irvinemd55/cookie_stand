@@ -1,36 +1,36 @@
 'use strict';
 
-var storeHours = ['6:00AM','7:00AM','8:00AM','9:00AM','10:00AM','11:00AM','12:00PM','1:00PM','2:00PM','3:00PM','4:00PM','5:00PM','7:00PM','8:00PM'];
-var pikeEl = document.getElementById('firstAndPikeSchedule');
-var firstAndPike = {
-  min: 23,
-  max: 65,
-  average: 6.3,
-  customersPerHour: [],
-  cookiesPerHour: [],
-  customersSum: 0,
-  cookiesSum: 0,
-  totalCustomers: function() {
-    for (var i = 0; i < storeHours.length; i++){
-      this.customersPerHour.push(Math.floor(Math.random() * (this.max - this.min + 1)) + this.min);
-      this.customersSum += this.customersPerHour[i];
+var storeHours = ['6:00AM','7:00AM','8:00AM','9:00AM','10:00AM','11:00AM','12:00PM','1:00PM','2:00PM','3:00PM','4:00PM','5:00PM','7:00PM','8:00PM']; //variable for each individual hour
+var pikeEl = document.getElementById('firstAndPikeSchedule'); //variable storing reference to html document
+var firstAndPike = { //first list
+  min: 23, //min property
+  max: 65, //max property
+  average: 6.3, //average property
+  customersPerHour: [], //customersPerHour property array used for storing values
+  cookiesPerHour: [], //cookiesPerHour property array used for storing values
+  customersSum: 0, //property storing total sum of customers
+  cookiesSum: 0, //property storing total sum of cookies
+  totalCustomers: function() { //function calculating total customer per hour
+    for (var i = 0; i < storeHours.length; i++){ //for loop going through each hour before cutting out
+      this.customersPerHour.push(Math.floor(Math.random() * (this.max - this.min + 1)) + this.min); //creates a random integer based on the min/max properties listed above and pushes to array
+      this.customersSum += this.customersPerHour[i]; //adds to customersSum value
     }
   },
-  totalCookies: function() {
-    this.totalCustomers();
-    for (var j = 0; j < this.customersPerHour.length; j++){
-      this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average));
-      this.cookiesSum += this.cookiesPerHour[j];
+  totalCookies: function() { //function multiplying average by total customers from previous function
+    this.totalCustomers(); //runs totalCustomers function
+    for (var j = 0; j < this.customersPerHour.length; j++){ //for loop going hour by hour
+      this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average)); //creates number by multiplying avg and total and rounding the value. additionaly pushes value to array for storage
+      this.cookiesSum += this.cookiesPerHour[j]; //adds to cookiesSum value
     }
   },
-  render: function(){
-    this.totalCookies();
-    for (var k = 0; k < storeHours.length; k++){
+  render: function(){ //renders values to html file
+    this.totalCookies(); //calls up totalCookies function
+    for (var k = 0; k < storeHours.length; k++){ //for loop going through each respective hour
       var liEl = document.createElement('li'); //calling in a list element
-      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.';
-      pikeEl.appendChild(liEl);
+      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.'; //creates string for printing
+      pikeEl.appendChild(liEl); //ammends list
     }
-    liEl = document.createElement('li');
+    liEl = document.createElement('li'); //ammends list with sum values as requested
     liEl.textContent = 'Total: ' + this.cookiesSum + ' cookies sold and ' + this.customersSum + ' customers served.';
     pikeEl.appendChild(liEl);
   }
