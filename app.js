@@ -22,7 +22,7 @@ function CookiesAndCustomers(name, min, max, average, list){
   this.totalCookies = function() {
     this.totalCustomers();
     for (var i = 0; i < this.customersPerHour.length; i++){
-      this.cookiesPerHour.push(Math.round(this.customersPerHour[i] * this.average));
+      this.cookiesPerHour.push(Math.ceil(this.customersPerHour[i] * this.average));
       this.cookiesSum += this.cookiesPerHour[i];
     }
   };
@@ -40,9 +40,14 @@ function CookiesAndCustomers(name, min, max, average, list){
 }
 var firstAndPike = new CookiesAndCustomers ('First and Pike', 23, 65, 6.3,document.getElementById('firstAndPikeSchedule'));
 firstAndPike.render();
-console.log(firstAndPike);
-console.log(storeHours);
-console.log(firstAndPike.totalCookies);
+var seaTacAirport = new CookiesAndCustomers ('SeaTac Airport', 3, 24, 1.2,document.getElementById('seaTacAirportSchedule'));
+seaTacAirport.render();
+var seattleCenter = new CookiesAndCustomers ('Seattle Center', 11, 38, 3.7,document.getElementById('seattleCenterSchedule'));
+seattleCenter.render();
+var capitolHill = new CookiesAndCustomers ('Capitol Hill', 3, 24, 1.2,document.getElementById('capitolHillSchedule'));
+capitolHill.render();
+var alki = new CookiesAndCustomers ('Alki', 3, 24, 1.2,document.getElementById('alkiSchedule'));
+alki.render();
 
 // var pikeEl = document.getElementById('firstAndPikeSchedule'); //variable storing reference to html document
 // var firstAndPike = { //first list
