@@ -108,3 +108,39 @@ var seaTacCenter = {
   }
 };
 seaTacCenter.render();
+
+var capitolHillEl = document.getElementById('capitolHillSchedule');
+var capitolHill = {
+  min: 20,
+  max: 38,
+  average: 2.3,
+  customersPerHour: [],
+  cookiesPerHour: [],
+  customersSum: 0,
+  cookiesSum: 0,
+  totalCustomers: function() {
+    for (var i = 0; i < storeHours.length; i++){
+      this.customersPerHour.push(Math.floor(Math.random() * (this.max - this.min + 1)) + this.min);
+      this.customersSum += this.customersPerHour[i];
+    }
+  },
+  totalCookies: function() {
+    this.totalCustomers();
+    for (var j = 0; j < this.customersPerHour.length; j++){
+      this.cookiesPerHour.push(Math.round(this.customersPerHour[j] * this.average));
+      this.cookiesSum += this.cookiesPerHour[j];
+    }
+  },
+  render: function(){
+    this.totalCookies();
+    for (var k = 0; k < storeHours.length; k++){
+      var liEl = document.createElement('li'); //calling in a list element
+      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.';
+      capitolHillEl.appendChild(liEl);
+    }
+    liEl = document.createElement('li');
+    liEl.textContent = 'Total: ' + this.cookiesSum + ' cookies sold and ' + this.customersSum + ' customers served.';
+    capitolHillEl.appendChild(liEl);
+  }
+};
+capitolHill.render();
