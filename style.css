@@ -1,8 +1,4 @@
-* {
-  outline: 2px dotted orange
-}
-
-ul {
+table {
   outline: 2px dashed green;
   padding: 10px;
 }

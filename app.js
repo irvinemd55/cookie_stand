@@ -1,7 +1,17 @@
 'use strict';
 
 var storeHours = ['6:00AM','7:00AM','8:00AM','9:00AM','10:00AM','11:00AM','12:00PM','1:00PM','2:00PM','3:00PM','4:00PM','5:00PM','7:00PM','8:00PM']; //variable for each individual hour
-
+var container = document.getElementById('table');//document referst to html. getElementById refers to the element assigned in the document`
+var renderHeader = function(){
+  var blankSpace = document.createElement('th');//createElement creates the specific element referenced
+  container.appendChild(blankSpace); //blankSpace has no content so it creates and empty cell
+  for (var i = 0; i < storeHours.length; i++){
+    var thEl = document.createElement('th');
+    thEl.textContent = storeHours[i] + ':';//same function as blankspace except storehours have value
+    container.appendChild(thEl);//appendChild takes content from child in parenthesis and appends it to the parent listed in the beginning
+  }
+};
+renderHeader();
 
 function CookiesAndCustomers(name, min, max, average, list){
   this.name = name;
@@ -27,15 +37,17 @@ function CookiesAndCustomers(name, min, max, average, list){
     }
   };
   this.render = function(){ //renders values to html file
-    this.totalCookies(); //calls up totalCookies function
-    for (var k = 0; k < storeHours.length; k++){ //for loop going through each respective hour
-      var liEl = document.createElement('li'); //calling in a list element
-      liEl.textContent = storeHours[k] + ': ' + this.cookiesPerHour[k] + ' cookies sold to ' + this.customersPerHour[k] + ' total customers.'; //creates string for printing
-      list.appendChild(liEl); //ammends list
-    }
-    liEl = document.createElement('li'); //ammends list with sum values as requested
-    liEl.textContent = 'Total: ' + this.cookiesSum + ' cookies sold and ' + this.customersSum + ' customers served.';
-    list.appendChild(liEl);
+    this.totalCookies();
+    var trEl = document.createElement('tr');//creates a row html element
+    container.appendChild(trEl); //appends new row to the container parent
+    var storeNames = document.createElement('td'); //creates a cell element
+    storeNames.textContent = this.name;//calls up restaurant name
+    trEl.appendChild(storeNames);//appends parent with storenames
+    for (var k = 0; k < storeHours.length; k++){
+      var tdEl = document.createElement('td');//for loop created cell elements
+      tdEl.textContent = this.cookiesPerHour[k]; //identifies point in index
+      trEl.appendChild(tdEl); //appends parent
+    };
   };
 }
 var firstAndPike = new CookiesAndCustomers ('First and Pike', 23, 65, 6.3,document.getElementById('firstAndPikeSchedule'));
